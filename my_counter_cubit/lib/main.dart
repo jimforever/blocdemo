@@ -49,11 +49,15 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          '${BlocProvider.of<CounterCubit>(context, listen: true).state.counter}',
-          style: TextStyle(fontSize: 52),
-        ),
+      body: BlocBuilder<CounterCubit, CounterState>(
+        builder: (context, state) {
+          return Center(
+            child: Text(
+              '${state.counter}',
+              style: TextStyle(fontSize: 52),
+            ),
+          );
+        },
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
