@@ -50,7 +50,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<CounterCubit, CounterState>(
+      body: BlocConsumer<CounterCubit, CounterState>(
         listener: (context, state) {
           // TODO: implement listener
           if (state.counter == 3) {
@@ -67,16 +67,14 @@ class MyHomePage extends StatelessWidget {
             }));
           }
         },
-        child: BlocBuilder<CounterCubit, CounterState>(
-          builder: (context, state) {
-            return Center(
-              child: Text(
-                '${state.counter}',
-                style: TextStyle(fontSize: 52),
-              ),
-            );
-          },
-        ),
+        builder: (context, state) {
+          return Center(
+            child: Text(
+              '${state.counter}',
+              style: TextStyle(fontSize: 52),
+            ),
+          );
+        },
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
