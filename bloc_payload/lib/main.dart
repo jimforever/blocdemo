@@ -15,20 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeBloc(),
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
+        create: (context) => ThemeBloc(),
+        child: Builder(builder: (context) {
           return MaterialApp(
             title: 'Event Payload',
             debugShowCheckedModeBanner: false,
-            theme: state.appTheme == AppTheme.light
+            theme: context.watch<ThemeBloc>().state.appTheme == AppTheme.light
                 ? ThemeData.light()
                 : ThemeData.dark(),
             home: const MyHomePage(),
           );
-        },
-      ),
-    );
+        }));
   }
 }
 
