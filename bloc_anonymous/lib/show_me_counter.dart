@@ -12,15 +12,22 @@ class ShowMeCounter extends StatelessWidget {
         title: Text('Counter'),
       ),
       body: Center(
-        child: BlocBuilder<CounterCubit, CounterState>(
-          builder: (context, state) {
-            return Text(
-              '${state.counter}',
-              style: TextStyle(fontSize: 52),
-            );
-          },
-        ),
-      ),
+          child: Column(
+        children: [
+          Text(
+            '${context.watch<CounterCubit>().state.counter}',
+            style: TextStyle(fontSize: 52),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                context.read<CounterCubit>().increment();
+              },
+              child: Text(
+                'Increment Counter',
+                style: TextStyle(fontSize: 20),
+              )),
+        ],
+      )),
     );
   }
 }

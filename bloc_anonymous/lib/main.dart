@@ -93,7 +93,8 @@ class MyHomePage extends StatelessWidget {
                 child: Text(
                   'Increment Counter',
                   style: TextStyle(fontSize: 20),
-                ))
+                )),
+            Text("counter is ${context.watch<CounterCubit>().state.counter}")
           ],
         ),
       ),
