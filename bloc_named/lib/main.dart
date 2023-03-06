@@ -43,6 +43,22 @@ class _MyAppState extends State<MyApp> {
               child: ShowMeCounter(),
             )
       },
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                      value: _counterCubit,
+                      child: MyHomePage(),
+                    ));
+          case "/counter":
+            return MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                      value: _counterCubit,
+                      child: ShowMeCounter(),
+                    ));
+        }
+      },
     );
   }
 
