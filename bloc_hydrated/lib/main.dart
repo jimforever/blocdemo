@@ -80,7 +80,9 @@ class MyHomePage extends StatelessWidget {
               width: 5,
             ),
             FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                HydratedBloc.storage.clear();
+              },
               child: Icon(Icons.delete_forever),
             ),
           ],
