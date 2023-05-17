@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_cubit/cubits/cubits.dart';
 
 import '../../cubits/filtered_todos/filtered_todos_cubit.dart';
+import '../../models/todo_model.dart';
 
 class ShowTodos extends StatelessWidget {
   const ShowTodos({Key? key}) : super(key: key);
@@ -17,9 +19,11 @@ class ShowTodos extends StatelessWidget {
             key: ValueKey(todos[index].id),
             background: showBackground(0),
             secondaryBackground: showBackground(1),
-            child: Text(
-              todos[index].desc,
-              style: TextStyle(fontSize: 20),
+            onDismissed: (_) {
+              context.read<TodoListCubit>().removeTodo(todos[index]);
+            },
+            child: TodoItem(
+              todo: todos[index],
             ),
           );
         },
@@ -40,6 +44,29 @@ class ShowTodos extends StatelessWidget {
         size: 30,
         color: Colors.white,
       ),
+    );
+  }
+}
+
+class TodoItem extends StatefulWidget {
+  final Todo todo;
+  const TodoItem({Key? key, required this.todo}) : super(key: key);
+
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+
+class _TodoItemState extends State<TodoItem> {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Checkbox(
+        value: widget.todo.completed,
+        onChanged: (bool? checked) {
+          context.read<TodoListCubit>().toggleTodo(widget.todo.id);
+        },
+      ),
+      title: Text(widget.todo.desc),
     );
   }
 }
