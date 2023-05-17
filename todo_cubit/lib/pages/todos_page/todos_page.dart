@@ -15,21 +15,32 @@ class TodosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                children: [
-                  TodoHeader(),
-                  CreateTodo(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SearchAndFilterTodo(),
-                  ShowTodos()
-                ],
-              )),
+      child: BlocListener<TodoListCubit, TodoListState>(
+        listener: (context, state) {
+          print("TodosPage blocListener is called $state");
+        },
+        child: BlocBuilder<ActiveTodoCountCubit, ActiveTodoCountState>(
+          builder: (context, state) {
+            print("TodosPage blocBuilder is called $state");
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 40),
+                    child: Column(
+                      children: [
+                        TodoHeader(),
+                        CreateTodo(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SearchAndFilterTodo(),
+                        ShowTodos()
+                      ],
+                    )),
+              ),
+            );
+          },
         ),
       ),
     );
